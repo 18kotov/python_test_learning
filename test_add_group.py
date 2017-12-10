@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-from selenium.webdriver.firefox.webdriver import WebDriver
-from selenium.webdriver.common.action_chains import ActionChains
-import time, unittest
+import unittest
+from group import Group
+from application import Application
 
 def is_alert_present(wd):
     try:
@@ -10,40 +10,35 @@ def is_alert_present(wd):
     except:
         return False
 
-class test_ad_group(unittest.TestCase):
+class test_add_group(unittest.TestCase):
     def setUp(self):
-        self.wd = WebDriver()
-        self.wd.implicitly_wait(60)
+        self.app = Application()
+
     
-    def test_test_ad_group(self):
+    def test_add_group(self):
         success = True
-        wd = self.wd
-        wd.get("http://localhost/addressbook/")
-        wd.find_element_by_name("user").click()
-        wd.find_element_by_name("user").clear()
-        wd.find_element_by_name("user").send_keys("admin")
-        wd.find_element_by_name("pass").click()
-        wd.find_element_by_name("pass").clear()
-        wd.find_element_by_name("pass").send_keys("secret")
-        wd.find_element_by_xpath("//form[@id='LoginForm']/input[3]").click()
-        wd.find_element_by_link_text("groups").click()
-        wd.find_element_by_name("new").click()
-        wd.find_element_by_name("group_name").click()
-        wd.find_element_by_name("group_name").clear()
-        wd.find_element_by_name("group_name").send_keys("ddfg")
-        wd.find_element_by_name("group_header").click()
-        wd.find_element_by_name("group_header").clear()
-        wd.find_element_by_name("group_header").send_keys("4fff")
-        wd.find_element_by_name("group_footer").click()
-        wd.find_element_by_name("group_footer").clear()
-        wd.find_element_by_name("group_footer").send_keys("fbhj")
-        wd.find_element_by_name("submit").click()
-        wd.find_element_by_link_text("groups").click()
-        wd.find_element_by_link_text("Logout").click()
-        self.assertTrue(success)
-    
+        self.app.open_start_page()
+        self.app.login(username="admin", password="secret")
+        self.app.open_groups_page()
+        self.app.create_group(Group(group_name="ddfg", header="4fff", footer="fbhj"))
+        self.app.return_to_groups_page()
+        self.app.logout()
+        self.app.assertTrue(success)
+
+    def test_add_empty_group(self):
+        success = True
+        self.app.open_start_page()
+        self.app.login( username="admin", password="secret")
+        self.app.open_groups_page()
+        self.app.create_group( Group(group_name="", header="", footer=""))
+        self.app.return_to_groups_page()
+        self.app.logout()
+        self.app.assertTrue(success)
+
+
+
     def tearDown(self):
-        self.wd.quit()
+        self.app.destroy()
 
 if __name__ == '__main__':
     unittest.main()
