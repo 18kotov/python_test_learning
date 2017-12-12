@@ -23,7 +23,7 @@ class test_add_group(unittest.TestCase):
         self.app.create_group(Group(group_name="ddfg", header="4fff", footer="fbhj"))
         self.app.return_to_groups_page()
         self.app.logout()
-        self.app.assertTrue(success)
+
 
     def test_add_empty_group(self):
         success = True
@@ -33,7 +33,7 @@ class test_add_group(unittest.TestCase):
         self.app.create_group( Group(group_name="", header="", footer=""))
         self.app.return_to_groups_page()
         self.app.logout()
-        self.app.assertTrue(success)
+
 
 
 

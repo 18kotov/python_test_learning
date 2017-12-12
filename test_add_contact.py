@@ -23,7 +23,7 @@ class test_add_contact(unittest.TestCase):
         self.app.add_new_contact(Contact("ssdr", "rr", "rrr", "ghjk", "hjj", "rrt", "tttt", "456", "rrtt@rrt.ty"))
         self.app.go_home_page()
         self.app.logout()
-        self.app.assertTrue(success)
+
 
 
 
