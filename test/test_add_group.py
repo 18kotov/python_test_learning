@@ -10,6 +10,7 @@ def test_add_group(app):
     app.group.open_groups_page()
     app.group.create(Group(group_name="ddfg", header="4fff", footer="fbhj"))
     app.group.return_to_groups_page()
+    # app.session.logout()
 
 
 
