@@ -40,11 +40,13 @@ class ContactHelper():
 
     def open_add_new_page(self):
         wd = self.app.wd
-        wd.find_element_by_link_text("add new").click()
+        if not wd.current_url.endswith("/edit.php"):
+            wd.find_element_by_link_text("add new").click()
 
     def go_home_page(self):
         wd = self.app.wd
-        wd.find_element_by_link_text("home").click()
+        if not wd.current_url.endswith("/addressbook/"):
+            wd.find_element_by_link_text("home").click()
 
     def edit_first_contact(self,contact):
         wd = self.app.wd
